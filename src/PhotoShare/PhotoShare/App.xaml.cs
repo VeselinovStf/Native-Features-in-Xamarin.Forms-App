@@ -1,8 +1,4 @@
-﻿using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using PhotoShare.Services;
-using PhotoShare.Views;
+﻿using Xamarin.Forms;
 
 namespace PhotoShare
 {
@@ -13,7 +9,6 @@ namespace PhotoShare
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
             MainPage = new AppShell();
         }
 
