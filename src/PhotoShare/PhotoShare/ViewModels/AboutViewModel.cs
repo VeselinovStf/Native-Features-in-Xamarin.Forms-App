@@ -6,6 +6,9 @@ namespace PhotoShare.ViewModels
 {
     public class AboutViewModel : BaseViewModel
     {
+        public string AppName { get => AppInfo.Name;  }
+        public string AppVersion { get => AppInfo.VersionString; }
+
         public AboutViewModel()
         {
             Title = "About";

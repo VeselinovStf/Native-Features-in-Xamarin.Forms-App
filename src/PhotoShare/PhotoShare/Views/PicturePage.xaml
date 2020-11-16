@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:PhotoShare.ViewModels"
+             x:Class="PhotoShare.Views.PicturePage"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="True"
+             Shell.NavBarIsVisible="False"
+             Title="{Binding Title}">
+    <ContentPage.BindingContext>
+        <vm:PictureViewModel/>
+    </ContentPage.BindingContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <BoxView Grid.Row="0" Color="{DynamicResource BoxColor}"/>
+        <Image Grid.Row="0"
+               Source="{Binding ImageSource}"
+               Margin="10"/>
+        <Button Grid.Row="1"
+                Text="{Binding ButtonLabel}"
+                Command="{Binding PickPhotoCommand}"/>
+        <Button Grid.Row="2"
+                Text="Share picture"
+                Command="{Binding ShareCommand}"/>
+        <Button Grid.Row="3"
+                Text="Fix Settings"
+                IsVisible="{Binding ShowFixSettings}"
+                Command="{Binding SettingsCommand}"/>
+    </Grid>
+</ContentPage>

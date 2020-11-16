@@ -13,4 +13,10 @@
   <ItemGroup>
     <Folder Include="Services\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Views\PicturePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>
