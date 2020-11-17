@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using PhotoShare.Services;
+using PhotoShare.ViewModels;
+using Xamarin.Forms;
 
 namespace PhotoShare.Views
 {
@@ -7,6 +9,19 @@ namespace PhotoShare.Views
         public AboutPage()
         {
             InitializeComponent();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            MessagingCenter.Subscribe<AboutViewModel>(this, "HideKeyboard", (sender) =>
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    DependencyService.Get<IKeyboardHelper>()?.HideKeyboard();
+                });
+            });
         }
     }
 }

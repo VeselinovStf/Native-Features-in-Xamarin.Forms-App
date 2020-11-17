@@ -43,6 +43,9 @@
                         Command="{Binding OpenWebCommand}"
                         BackgroundColor="{StaticResource Primary}"
                         TextColor="White" />
+                <Label Text="{Binding CountDownLabel}"/>
+                <Entry Placeholder="Type something to activate - Hide keyboard timer"
+                       Text="{Binding CountDownText}"/>
             </StackLayout>
         </ScrollView>
     </Grid>
