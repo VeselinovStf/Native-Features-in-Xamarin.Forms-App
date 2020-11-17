@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PhotoShare.Services;
+using System;
+using System.IO;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -7,6 +9,10 @@ namespace PhotoShare.ViewModels
 {
     public class PictureViewModel : BaseViewModel
     {
+        //Header let us know - png / jpeg
+        private static readonly byte[] PngHeader = new byte[] { 137, 80, 78, 71, 13, 10, 26, 10 };
+        private byte[] cachedImage = null;
+
         private bool _EnableShareButton = false;
 
         public Command PickPhotoCommand { get; set; }
@@ -53,7 +59,20 @@ namespace PhotoShare.ViewModels
 
         private async Task SharePhoto()
         {
-            throw new NotImplementedException();
+            var fn = IsPng() ? "attachment.png" : "attachment.jpg";
+
+            var shareFileName = Path.Combine(FileSystem.CacheDirectory, fn);
+
+            File.WriteAllBytes(shareFileName, cachedImage);
+
+            await Share.RequestAsync(new ShareFileRequest
+            {
+                Title = "Shared from me",
+                File = new ShareFile(shareFileName),
+                PresentationSourceBounds = DeviceInfo.Platform == DevicePlatform.iOS && DeviceInfo.Idiom == DeviceIdiom.Tablet
+                    ? new System.Drawing.Rectangle(0, 20, 0, 0)
+                    : System.Drawing.Rectangle.Empty
+            });
         }
 
         private async Task PickPhoto()
@@ -78,7 +97,41 @@ namespace PhotoShare.ViewModels
             else
             {
                 ShowFixSettings = false;
+
+                var sharedPhoto = await DependencyService.Get<IPhotoPickerService>()
+                                          .GetImageStreamAsync();
+
+                if (sharedPhoto != null)
+                {
+                    BoxOpacity = 0;
+
+                    // Make a copy of the image stream as ImageSource.FromStream() will 
+                    // close the source
+
+                    var stream = new MemoryStream();
+                    sharedPhoto.ImageData.CopyTo(stream);
+                    cachedImage = stream.ToArray();
+
+                    ImageSource = ImageSource.FromStream(() => new MemoryStream(cachedImage));
+
+                    ButtonLabel = "Pick another picture";
+                    _EnableShareButton = true;
+                    ShareCommand.ChangeCanExecute();
+                }
             }
+        }
+
+        private bool IsPng()
+        {
+            bool result;
+            int i = 0;
+
+            do
+            {
+                result = cachedImage[i] == PngHeader[i];
+            } while (result && ++i < 8);
+
+            return result;
         }
 
         private string _buttonLabel = "Pick Picture";
