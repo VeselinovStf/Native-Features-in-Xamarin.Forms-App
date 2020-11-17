@@ -5,6 +5,11 @@
     <Application.Resources>
         <ResourceDictionary>
             <Color x:Key="BoxColor">#486b9c</Color>
+            
+            <OnPlatform x:Key="LogoImage" x:TypeArguments="FileImageSource">
+                <On Platform="iOS" Value="logoi.png"/>
+                <On Platform="Android" Value="logoa.xml"/>
+            </OnPlatform>
             <Color x:Key="Primary">#2196F3</Color>
             <Style TargetType="Button">
                 <Setter Property="TextColor" Value="White"></Setter>

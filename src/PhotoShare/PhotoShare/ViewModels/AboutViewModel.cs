@@ -16,5 +16,26 @@ namespace PhotoShare.ViewModels
         }
 
         public ICommand OpenWebCommand { get; }
+
+        public string Platform
+        {
+            get
+            {
+                switch (Device.RuntimePlatform)
+                {
+                    case Device.iOS:
+                        if (Device.Idiom == TargetIdiom.Tablet)
+                        {
+                            return "iPad";
+                        }
+                        else
+                        {
+                            return "iPhone";
+                        }
+                    default:
+                        return Device.RuntimePlatform;
+                }
+            }
+        }
     }
 }

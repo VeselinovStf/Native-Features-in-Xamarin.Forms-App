@@ -17,7 +17,9 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <BoxView Grid.Row="0" Color="{DynamicResource BoxColor}"/>
+        <BoxView Grid.Row="0" 
+                 Color="{DynamicResource BoxColor}" Opacity="{Binding BoxOpacity}"
+                 Margin="{OnPlatform iOS=10, Android=30, Default=20}"/>
         <Image Grid.Row="0"
                Source="{Binding ImageSource}"
                Margin="10"/>

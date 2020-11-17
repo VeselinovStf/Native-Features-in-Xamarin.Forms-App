@@ -3,7 +3,8 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:PhotoShare.Views"
        Title="PhotoShare"
-       x:Class="PhotoShare.AppShell">
+       x:Class="PhotoShare.AppShell"
+       xmlns:icons="clr-namespace:PhotoShare.Icons">
 
     <!--
         The overall app visual hierarchy is defined here, along with navigation.
@@ -74,10 +75,18 @@
         </ResourceDictionary>
     </Shell.Resources>
     <TabBar >
-        <Tab Title="Get Pictures" Icon="tab_feed.png">
+        <Tab Title="Get Pictures" >
+            <Tab.Icon>
+                <FontImageSource FontFamily="MaterialDesignIcons"
+                                 Glyph="{x:Static icons:MaterialDesignIconsFont.ImageMultiple}"/>
+            </Tab.Icon>
             <ShellContent ContentTemplate="{DataTemplate local:PicturePage}"/>
         </Tab>
-        <Tab Title="Get Pictures" Icon="tab_feed.png">
+        <Tab Title="About" >
+            <Tab.Icon>
+                <FontImageSource FontFamily="MaterialDesignIcons"
+                                 Glyph="{x:Static icons:MaterialDesignIconsFont.FolderInformationOutline}"/>
+            </Tab.Icon>
             <ShellContent ContentTemplate="{DataTemplate local:AboutPage}"/>
         </Tab>
     </TabBar>

@@ -19,9 +19,36 @@ namespace PhotoShare.ViewModels
         {
             Title = "Pictures";
 
+            int i = 0;
+            Device.StartTimer(new TimeSpan(0, 0, 1), () =>
+              {
+                  if (i > 1000)
+                  {
+                      KeepGoing = false;
+                  }
+
+                  Device.BeginInvokeOnMainThread(() =>
+                  {
+                      BoxOpacity = i / 100.0;
+                  });
+
+                  i += 5;
+
+                  return KeepGoing;
+              });
+
             PickPhotoCommand = new Command(async () => await PickPhoto());
             ShareCommand = new Command(async () => await SharePhoto(), () => _EnableShareButton);
             SettingsCommand = new Command(() => AppInfo.ShowSettingsUI());
+        }
+
+        public void StopFade()
+        {
+            if (KeepGoing)
+            {
+                KeepGoing = false;
+                BoxOpacity = 1.0;
+            }
         }
 
         private async Task SharePhoto()
@@ -31,6 +58,8 @@ namespace PhotoShare.ViewModels
 
         private async Task PickPhoto()
         {
+            StopFade();
+
             var status = await Permissions.CheckStatusAsync<Permissions.Photos>();
 
             if (status == PermissionStatus.Unknown)
@@ -53,6 +82,15 @@ namespace PhotoShare.ViewModels
         }
 
         private string _buttonLabel = "Pick Picture";
+
+        private double _boxOpacity;
+        public double BoxOpacity
+        {
+            get { return _boxOpacity; }
+            set { SetProperty(ref _boxOpacity, value); }
+        }
+
+        public bool KeepGoing { get; set; } = true;
 
         public string ButtonLabel
         {
