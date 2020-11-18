@@ -13,7 +13,7 @@ using PhotoShare.Services;
 using PhotoShare.Services.Models;
 using Xamarin.Forms;
 
-[assembly: Dependency(typeof(PhotoShare.Droid.PhotoPickerService))]
+//[assembly: Dependency(typeof(PhotoShare.Droid.PhotoPickerService))]
 namespace PhotoShare.Droid
 {
     public class PhotoPickerService : IPhotoPickerService

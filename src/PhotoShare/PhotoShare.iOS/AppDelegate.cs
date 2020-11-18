@@ -1,5 +1,7 @@
 ﻿
 using Foundation;
+using Microsoft.Extensions.DependencyInjection;
+using PhotoShare.Services;
 using UIKit;
 
 namespace PhotoShare.iOS
@@ -21,9 +23,20 @@ namespace PhotoShare.iOS
         {
             global::Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
             global::Xamarin.Forms.Forms.Init();
+
+            StartUp.Init(ConfigureServices);
+
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
         }
+
+        void ConfigureServices(IServiceCollection services)
+        {
+            services.AddTransient<IToastMessage, ToastMessage>();
+            services.AddTransient<IKeyboardHelper, KeyBoardHelper>();
+            services.AddTransient<IPhotoPickerService, PhotoPickerService>();
+        }
+
     }
 }

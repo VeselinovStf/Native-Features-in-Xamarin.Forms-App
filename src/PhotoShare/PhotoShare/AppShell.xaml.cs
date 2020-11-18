@@ -6,6 +6,8 @@ namespace PhotoShare
 {
     public partial class AppShell : Xamarin.Forms.Shell
     {
+       
+
         NetworkAccess LastNetworkAccess = NetworkAccess.Unknown;
 
         public AppShell()

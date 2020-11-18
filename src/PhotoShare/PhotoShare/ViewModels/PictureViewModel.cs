@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace PhotoShare.ViewModels
 {
@@ -98,8 +99,11 @@ namespace PhotoShare.ViewModels
             {
                 ShowFixSettings = false;
 
-                var sharedPhoto = await DependencyService.Get<IPhotoPickerService>()
-                                          .GetImageStreamAsync();
+                //var sharedPhoto = await DependencyService.Get<IPhotoPickerService>()
+                //                          .GetImageStreamAsync();
+                var sharedPhotoService =  App.ServiceProvider.GetService<IPhotoPickerService>();
+                var sharedPhoto = await sharedPhotoService.GetImageStreamAsync();                  
+
 
                 if (sharedPhoto != null)
                 {

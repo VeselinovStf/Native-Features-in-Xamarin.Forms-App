@@ -1,6 +1,7 @@
 ﻿using PhotoShare.Services;
 using PhotoShare.ViewModels;
 using Xamarin.Forms;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace PhotoShare.Views
 {
@@ -19,7 +20,8 @@ namespace PhotoShare.Views
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    DependencyService.Get<IKeyboardHelper>()?.HideKeyboard();
+                    App.ServiceProvider.GetService<IKeyboardHelper>().HideKeyboard();
+                    App.ServiceProvider.GetService<IToastMessage>().OpenToast("Goodbye keyboard"); ;                                     
                 });
             });
         }

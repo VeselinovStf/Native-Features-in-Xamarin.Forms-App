@@ -14,7 +14,7 @@ using Android.Widget;
 using PhotoShare.Services;
 using Plugin.CurrentActivity;
 
-[assembly: Xamarin.Forms.Dependency(typeof(PhotoShare.Droid.KeyBoardHelper))]
+//[assembly: Xamarin.Forms.Dependency(typeof(PhotoShare.Droid.KeyBoardHelper))]
 namespace PhotoShare.Droid
 {
 
