@@ -1,7 +1,6 @@
 # Native-Features-in-Xamarin.Forms-App
 Pluralsight "Working with Native Features in Xamarin.Forms Applications" course repository
 
-![Final demos presentation]()
 
 ## Course Info
 
@@ -41,6 +40,8 @@ Pluralsight "Working with Native Features in Xamarin.Forms Applications" course 
 #### Duration: 1h 38m
 
 ### Status
+
+- Completed
 
 
 
